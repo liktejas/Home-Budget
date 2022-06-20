@@ -218,9 +218,12 @@
                 </div>
               @else
                 <h4 class="text-center text-danger">No Records for this Month Found</h4>
+                <?php
+                  $date = "";
+                  $time=strtotime($date);
+                ?>
               @endif
               <?php
-                $date = "";
                 $time=strtotime($date);
                 $report_month=date("F",$time);
                 $report_year=date("Y",$time);

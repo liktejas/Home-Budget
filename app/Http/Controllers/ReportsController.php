@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\DB;
 
 class ReportsController extends Controller
 {
+    function __construct(){
+        session_start();
+    }
     public function bydate(Request $req)
     {
         if(empty($req->session()->has('USER_NAME')))
