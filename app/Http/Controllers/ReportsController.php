@@ -15,10 +15,6 @@ class ReportsController extends Controller
     }
     public function bydate(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         if(isset($_POST['submit']))
         {
             $getdatabydate = ExpenditureModel::where('date', $req->date)->get(['exp','bills','amount','date','desc']);
@@ -29,10 +25,6 @@ class ReportsController extends Controller
     }
     public function bymonth(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         if(isset($_POST['submit']))
         {
             $exp_type = ExpType::get();
@@ -47,10 +39,6 @@ class ReportsController extends Controller
     }
     public function bymonthexp(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         if(isset($_POST['submit']))
         {
             $exp_type = ExpType::get('exp_type');
@@ -61,16 +49,6 @@ class ReportsController extends Controller
         }
         $minmonthyear = DB::select('SELECT MIN(YEAR(date)) as min_year ,MAX(YEAR(date)) as max_year FROM expenditure');
         return view('reports/bymonthexp', ['minmonthyear'=>$minmonthyear]);
-    }
-    public function try(Request $req)
-    {
-        $month = 02;
-        $year = 2021;
-        $exp_type = ExpType::get('exp_type');
-        $databymonthyear = DB::select("SELECT IFNULL(SUM(amount),0) AS total_amount FROM `expenditure` where MONTH(date)=2 AND YEAR(date)=2021 AND exp='Fuel' AND date='2021-02-01'");
-        $getdatebymonthyear = DB::select("SELECT DISTINCT(date) FROM `expenditure`where MONTH(date)=2 AND YEAR(date)=2021 ORDER BY date");
-        return $exp_type;
-        
     }
     
 }

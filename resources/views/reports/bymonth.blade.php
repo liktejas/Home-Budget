@@ -173,7 +173,9 @@
       <div class="container-fluid">
         <div class="row">
           <div class="container">
-            
+          @if ($minmonthyear[0]->min_year == null && $minmonthyear[0]->max_year == null)
+                <h4 class="text-center text-danger">No Entries Made, Please Add Expenditure to View Report</h4>
+          @else
             <form action="/bymonth" method="post">
                 @csrf
                 <div class="row">
@@ -213,7 +215,7 @@
                     </div>
                 </div>
             </form>
-
+            @endif
             @if(empty($databymonthcount))
             <?php $month = ""; $year = ""; $date = ""; $time= "";$report_month = "";?>
             @else

@@ -49,18 +49,10 @@ class UsersController extends Controller
     }
     public function logout(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         $req->session()->flush();
         return redirect('/');
     }
     public function dashboard(Request $req){
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         $getexp = ExpenditureModel::orderBy('date', 'desc')->get();
         $getexp_type = ExpType::get();
         $getbill_type = BillsType::get();
@@ -68,20 +60,12 @@ class UsersController extends Controller
     }
     public function expNBills(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         $getexp_type = ExpType::orderBy('id', 'desc')->get();
         $getbills_type = BillsType::orderBy('id', 'desc')->get();
         return view('expNBills',['getexp_type'=>$getexp_type, 'getbills_type'=>$getbills_type]);
     }
     public function addExpType(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         $data = new ExpType();
         $data->exp_type = $req->expenditure_type;
         $confirm_save = $data->save();
@@ -98,10 +82,6 @@ class UsersController extends Controller
     }
     public function addBillType(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         $data = new BillsType();
         $data->bills_type = $req->bills_type;
         $confirm_save = $data->save();
@@ -118,10 +98,6 @@ class UsersController extends Controller
     }
     public function editExpType(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         $update_exp_type = ExpType::find($req->edit_exp_id);
         $update_exp_type->exp_type = $req->edit_expenditure_type;
         $confirm_update = $update_exp_type->save();
@@ -138,10 +114,6 @@ class UsersController extends Controller
     }
     public function editBillType(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         $update_bill_type = BillsType::find($req->edit_bill_id);
         $update_bill_type->bills_type = $req->edit_bill_type;
         $confirm_update = $update_bill_type->save();
@@ -158,10 +130,6 @@ class UsersController extends Controller
     }
     public function delete_exp_type(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         $delete_exp_type = ExpType::find($req->id);
         $confirm_delete = $delete_exp_type->delete();
         if($confirm_delete)
@@ -177,10 +145,6 @@ class UsersController extends Controller
     }
     public function delete_bill_type(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         $delete_bill_type = BillsType::find($req->id);
         $confirm_delete = $delete_bill_type->delete();
         if($confirm_delete)
@@ -196,10 +160,6 @@ class UsersController extends Controller
     }
     public function addExp(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         if($req->bill == "")
         {
             $expenditure_data = explode(',', $req->expenditure);
@@ -250,10 +210,6 @@ class UsersController extends Controller
     }
     public function editExp(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         // return $req;
         if($req->bill_type_id == "")
         {
@@ -333,10 +289,6 @@ class UsersController extends Controller
     }
     public function delete_exp(Request $req)
     {
-        if(empty($req->session()->has('USER_NAME')))
-        {
-            return redirect('/');
-        }
         $data = ExpenditureModel::find($req->id);
         $confirm_delete = $data->delete();
         if($confirm_delete)

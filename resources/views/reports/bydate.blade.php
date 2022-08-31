@@ -126,7 +126,10 @@
       <div class="container-fluid">
         <div class="row">
           <div class="container">
-            
+          <?php $date_count = DB::select("SELECT COUNT(date) as date_count FROM `expenditure`"); ?>
+          @if($date_count[0]->date_count == 0)
+            <h4 class="text-center text-danger">No Entries Made, Please Add Expenditure to View Report</h4>
+          @else
             <form action="/bydate" method="post">
                 @csrf
                 <div class="col-md-4">
@@ -137,6 +140,7 @@
                     </div>
                 </div>
             </form>
+            @endif
             @if(!empty($getdatabydate))
                 <div class="table-responsive mb-4">
                     <table class="table table-striped table-hover" id="reportbydate_table">
